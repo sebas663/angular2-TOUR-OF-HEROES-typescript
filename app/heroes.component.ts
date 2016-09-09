@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router }            from '@angular/router';
 import { Hero }                from './hero';
 import { HeroService }         from './hero.service';
+//console.log(HeroService);
 @Component({
   selector: 'my-heroes',
   templateUrl: 'app/heroes.component.html',
@@ -28,8 +29,10 @@ export class HeroesComponent implements OnInit {
       });
   }
   delete(hero: Hero): void {
+	console.log("hero._id " + hero._id);
+	console.log("hero.name " + hero.name);
     this.heroService
-        .delete(hero.id)
+        .delete(hero._id)
         .then(() => {
           this.heroes = this.heroes.filter(h => h !== hero);
           if (this.selectedHero === hero) { this.selectedHero = null; }
@@ -40,8 +43,9 @@ export class HeroesComponent implements OnInit {
   }
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+	console.log(JSON.stringify(this.selectedHero));
   }
   gotoDetail(): void {
-    this.router.navigate(['/detail', this.selectedHero.id]);
+    this.router.navigate(['/detail', this.selectedHero._id]);
   }
 }

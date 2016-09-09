@@ -4,10 +4,14 @@ import { Observable } from 'rxjs';
 import { Hero }           from './hero';
 @Injectable()
 export class HeroSearchService {
+  private heroesUrl = 'http://localhost:8080/api/hero/heroesSearch';
+  
   constructor(private http: Http) {}
+  
   search(term: string): Observable<Hero[]> {
     return this.http
-               .get(`app/heroes/?name=${term}`)
-               .map((r: Response) => r.json().data as Hero[]);
+               .get(this.heroesUrl + `/${term}`)
+               .map((r: Response) => r.json() as Hero[]);
   }
+  
 }
